@@ -85,3 +85,9 @@ lint/tmp/
 # androidide
 .androidideapp/*.jks
 *.keystore
+
+.androidide/
+.gradle/
+build/
+app/build/
+*.apk
