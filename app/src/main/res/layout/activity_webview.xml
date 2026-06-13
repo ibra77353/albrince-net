@@ -37,12 +37,44 @@
             android:textStyle="bold"
             android:gravity="center" />
 
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="⟳"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:background="@drawable/bg_orange_rounded_small"
+            android:paddingHorizontal="16dp" />
+
     </LinearLayout>
+
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:progressTint="#FF7900" />
 
     <!-- WebView -->
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <!-- رسالة الخطأ -->
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:lineSpacingExtra="8dp" />
 
 </LinearLayout>
