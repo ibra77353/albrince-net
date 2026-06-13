@@ -16,7 +16,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("albrince.jks")
+            storeFile file("../../albrince.jks")
             storePassword "12345678"
             keyAlias "albrince"
             keyPassword "12345678"

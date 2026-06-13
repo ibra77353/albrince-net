@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="هذا التطبيق سيمكنك من مشاهدة الاستراحة والبث المباشر الخاص بشبكة البرنس نت، علماً أن التطبيق لن يعمل في شبكة أخرى."
+                android:text="استمتع بمشاهدة الاستراحة والبث المباشر الخاص بشبكة البرنس نت بجودة عالية وسهولة تامة. البث داخل الشبكة مجاني 100% ولا يتم الخصم من رصيدك أو استهلاك الميجابايت أثناء المشاهدة. ملاحظة: التطبيق يعمل حصرياً على شبكة البرنس نت."
                 android:textColor="#F5F5F5"
                 android:textSize="18sp"
                 android:gravity="center"
