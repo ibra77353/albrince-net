@@ -105,7 +105,7 @@
                 android:id="@+id/btnLiveStream"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="الدخول إلى البث المباشر"
+                android:text="دخول البث المباشر"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold"

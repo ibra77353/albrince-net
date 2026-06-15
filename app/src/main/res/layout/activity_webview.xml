@@ -15,17 +15,6 @@
         android:background="#16213E"
         android:elevation="4dp">
 
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="← رجوع"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:background="@drawable/bg_orange_rounded_small"
-            android:paddingHorizontal="14dp"
-            android:minWidth="70dp" />
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
@@ -37,6 +26,19 @@
             android:textStyle="bold"
             android:gravity="center" />
 
+        <!-- زر الرئيسية 🏠 -->
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="🏠"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:background="@drawable/bg_orange_rounded_small"
+            android:paddingHorizontal="14dp"
+            android:layout_marginEnd="8dp" />
+
+        <!-- زر تحديث ⟳ -->
         <Button
             android:id="@+id/btnRefresh"
             android:layout_width="wrap_content"

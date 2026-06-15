@@ -1,10 +1,15 @@
 package com.albrince.net;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.NetworkCapabilities;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -27,32 +32,26 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
-        // استلام البيانات
         String url = getIntent().getStringExtra("URL");
         String title = getIntent().getStringExtra("TITLE");
 
-        // التحقق من صحة الرابط
         if (url == null || url.isEmpty()) {
             Toast.makeText(this, "الرابط غير صالح", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // ربط العناصر
         TextView tvTitle = findViewById(R.id.tvTitle);
-        Button btnBack = findViewById(R.id.btnBack);
+        Button btnHome = findViewById(R.id.btnHome);
         Button btnRefresh = findViewById(R.id.btnRefresh);
         webView = findViewById(R.id.webView);
         progressBar = findViewById(R.id.progressBar);
         tvError = findViewById(R.id.tvError);
 
-        // تعيين العنوان
         tvTitle.setText(title != null ? title : "صفحة الدخول");
-
-        // زر العودة
-        btnBack.setOnClickListener(v -> finish());
-
-        // زر تحديث الصفحة
+        
+        btnHome.setOnClickListener(v -> finish());
+        
         btnRefresh.setOnClickListener(v -> {
             if (isNetworkAvailable()) {
                 tvError.setVisibility(View.GONE);
@@ -63,22 +62,31 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
 
-        // إعداد WebView
         setupWebView(url);
     }
 
     private void setupWebView(String url) {
         WebSettings webSettings = webView.getSettings();
+        
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            webSettings.setDatabasePath(this.getDir("database", Context.MODE_PRIVATE).getPath());
+        }
 
-        // التحقق من وجود إنترنت
+        CookieManager.getInstance().setAcceptCookie(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+        }
+
         if (!isNetworkAvailable()) {
             showNoInternetMessage();
             return;
@@ -87,7 +95,20 @@ public class WebViewActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
-                view.loadUrl(request.getUrl().toString());
+                String url = request.getUrl().toString();
+                
+                // الروابط التي تحتوي على b.net تفتح داخل WebView
+                if (url.contains("b.net")) {
+                    return false;  // false = تفتح داخل WebView
+                }
+                
+                // جميع الروابط الأخرى (واتساب، روابط خارجية، الخ) تفتح في متصفح خارجي
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(WebViewActivity.this, "لا يوجد تطبيق لفتح هذا الرابط", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
 
@@ -106,10 +127,11 @@ public class WebViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
-                progressBar.setVisibility(View.GONE);
-                showErrorMessage();
+            public void onReceivedError(@NonNull WebView view, @NonNull WebResourceRequest request, @NonNull WebResourceError error) {
+                if (request.isForMainFrame()) {
+                    progressBar.setVisibility(View.GONE);
+                    showErrorMessage();
+                }
             }
         });
 
@@ -118,8 +140,19 @@ public class WebViewActivity extends AppCompatActivity {
 
     private boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnected();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            android.net.Network network = cm.getActiveNetwork();
+            if (network == null) return false;
+            NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+            return capabilities != null &&
+                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        } else {
+            @SuppressWarnings("deprecation")
+            android.net.NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isConnected();
+        }
     }
 
     private void showNoInternetMessage() {
@@ -136,10 +169,6 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
+        finish();
     }
 }
