@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="glass_card_bg">#8C37232D</color>
+<?xml version="1.0" encoding="utf-8"?><resources><!-- الوضع النهاري -->
+
+<color name="background">#FAFAFA</color>
+<color name="surface">#FFFFFF</color>
+<color name="toolbar">#FFFFFF</color>
+
+<color name="text_primary">#212121</color>
+<color name="text_secondary">#616161</color>
+<color name="text_hint">#9E9E9E</color>
+
+<!-- اللون الرئيسي البرتقالي -->
+<color name="accent">#FF7900</color>
+<color name="accent_dark">#E66D00</color>
+
+<!-- البطاقات -->
+<color name="card_bg">#FFFFFF</color>
+<color name="border">#E5E5E5</color>
+
+<!-- الأخطاء -->
+<color name="error_text">#D32F2F</color>
+
+<!-- تدرج خفيف وحديث -->
+<color name="gradient_start">#FFF8F2</color>
+<color name="gradient_center">#FFF3E6</color>
+<color name="gradient_end">#FFFFFF</color>
+
+<!-- عناصر إضافية -->
+<color name="gradient_pink">#FF6B8A</color>
+<color name="gradient_gold">#FFB74D</color>
+
+<color name="border_glass">#22FF7900</color>
+<color name="border_support">#33FF7900</color>
+<color name="border_tag">#55FF7900</color>
+
 </resources>

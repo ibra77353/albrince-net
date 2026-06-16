@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- الألوان الأساسية - الوضع الليلي -->
+    <color name="background">#1A1A2E</color>
+    <color name="surface">#16213E</color>
+    <color name="toolbar">#0F0F1A</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#BBBBBB</color>
+    <color name="text_hint">#888888</color>
+    <color name="accent">#FF7900</color>
+    <color name="accent_dark">#E56A00</color>
+    <color name="card_bg">#1A1A2E</color>
+    <color name="border">#2A2A3E</color>
+    <color name="error_text">#FF6B6B</color>
+    <!-- ألوان التدرجات والحدود -->
+    <color name="gradient_start">#2A001C</color>
+    <color name="gradient_center">#3A0823</color>
+    <color name="gradient_end">#120008</color>
+    <color name="gradient_pink">#FF3D7F</color>
+    <color name="gradient_gold">#FFD29A</color>
+    <color name="border_glass">#33FFB478</color>
+    <color name="border_support">#40FFAA64</color>
+    <color name="border_tag">#D8A06D</color>
+</resources>

@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.core.content.FileProvider;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,13 +32,35 @@ public class UpdateChecker {
 
     public UpdateChecker(Context context, String currentVersion) {
         this.context = context;
-        this.currentVersion = currentVersion;
+        this.currentVersion = currentVersion.replaceAll("^v", "");
     }
 
-    public void checkForUpdate() {
+    // فحص صامت عند فتح التطبيق (لا يظهر Toast إذا كان لا يوجد تحديث)
+    public void checkForUpdateSilent() {
         executor.execute(() -> {
             Integer result = checkUpdateInBackground();
-            mainHandler.post(() -> onCheckComplete(result));
+            mainHandler.post(() -> {
+                if (result == 1) {
+                    showUpdateDialog();
+                }
+                // result == 0 أو -1: لا نفعل شيئاً (صامت)
+            });
+        });
+    }
+
+    // فحص يدوي من الإعدادات (يظهر Toast إذا كان لا يوجد تحديث)
+    public void checkForUpdateManual() {
+        executor.execute(() -> {
+            Integer result = checkUpdateInBackground();
+            mainHandler.post(() -> {
+                if (result == 1) {
+                    showUpdateDialog();
+                } else if (result == 0) {
+                    Toast.makeText(context, "✅ أنت تستخدم أحدث إصدار", Toast.LENGTH_LONG).show();
+                } else if (result == -1) {
+                    Toast.makeText(context, "لا يوجد اتصال بالإنترنت", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
@@ -54,10 +77,20 @@ public class UpdateChecker {
                 String json = convertStreamToString(connection.getInputStream());
                 JSONObject jsonObject = new JSONObject(json);
                 latestVersion = jsonObject.getString("tag_name").replaceAll("^v", "");
-                downloadUrl = jsonObject.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
 
-                String cleanCurrent = currentVersion.replaceAll("^v", "");
-                return compareVersions(latestVersion, cleanCurrent) ? 1 : 0;
+                JSONArray assets = jsonObject.getJSONArray("assets");
+                downloadUrl = null;
+                for (int i = 0; i < assets.length(); i++) {
+                    JSONObject asset = assets.getJSONObject(i);
+                    String fileName = asset.getString("name");
+                    if (fileName.toLowerCase().endsWith(".apk")) {
+                        downloadUrl = asset.getString("browser_download_url");
+                        break;
+                    }
+                }
+
+                if (downloadUrl == null) return -1;
+                return compareVersions(latestVersion, currentVersion) ? 1 : 0;
             }
             return -1;
         } catch (Exception e) {
@@ -89,27 +122,22 @@ public class UpdateChecker {
         }
     }
 
-    private void onCheckComplete(Integer result) {
-        if (result == 1) {
-            new AlertDialog.Builder(context)
-                    .setTitle("📱 تحديث متاح")
-                    .setMessage("الإصدار " + latestVersion + " متاح!\n\n" +
-                            "الإصدار الحالي: " + currentVersion + "\n" +
-                            "هل تريد تحديث التطبيق الآن؟")
-                    .setPositiveButton("تحديث", (dialog, which) -> downloadAndInstall())
-                    .setNegativeButton("ليس الآن", null)
-                    .show();
-        } else if (result == -1) {
-            Toast.makeText(context, "فشل التحقق من التحديث، تأكد من اتصال الإنترنت", Toast.LENGTH_LONG).show();
-        }
+    private void showUpdateDialog() {
+        new AlertDialog.Builder(context)
+                .setTitle("📱 تحديث متاح")
+                .setMessage("الإصدار " + latestVersion + " متاح!\n\n" +
+                        "الإصدار الحالي: " + currentVersion + "\n" +
+                        "هل تريد تحديث التطبيق الآن؟")
+                .setPositiveButton("تحديث", (dialog, which) -> downloadAndInstall())
+                .setNegativeButton("ليس الآن", null)
+                .show();
     }
 
     private void downloadAndInstall() {
-        // حذف أي ملف APK قديم (لنفس التطبيق) قبل تنزيل الجديد
         deleteOldApkFiles();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("جاري التحميل 0%");  // ✅ التعديل 1
+        builder.setTitle("جاري التحميل 0%");
         builder.setCancelable(false);
         ProgressBar progressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
         progressBar.setMax(100);
@@ -119,7 +147,6 @@ public class UpdateChecker {
         executor.execute(() -> {
             File file = downloadFileInBackground(progressBar);
             mainHandler.post(() -> {
-                // ✅ التعديل 2
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
@@ -137,8 +164,7 @@ public class UpdateChecker {
         File[] files = cacheDir.listFiles((dir, name) -> name != null && name.startsWith("albrince-net-v") && name.endsWith(".apk"));
         if (files != null) {
             for (File oldApk : files) {
-                boolean deleted = oldApk.delete();
-                if (deleted) android.util.Log.d("UpdateChecker", "Deleted old APK: " + oldApk.getName());
+                oldApk.delete();
             }
         }
     }
@@ -157,12 +183,12 @@ public class UpdateChecker {
                 byte[] buffer = new byte[4096];
                 long total = 0;
                 int count;
-                int lastProgress = -1;  // ✅ التعديل 3
+                int lastProgress = -1;
                 while ((count = input.read(buffer)) != -1) {
                     total += count;
                     if (fileLength > 0) {
                         int progress = (int) (total * 100 / fileLength);
-                        if (progress != lastProgress) {  // ✅ التعديل 3
+                        if (progress != lastProgress) {
                             lastProgress = progress;
                             mainHandler.post(() -> {
                                 progressBar.setProgress(progress);

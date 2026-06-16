@@ -2,6 +2,7 @@ package com.albrince.net;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class WebViewActivity extends AppCompatActivity {
 
@@ -29,6 +31,11 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // تحميل الوضع المحفوظ
+        SharedPreferences prefs = getSharedPreferences("app_settings", MODE_PRIVATE);
+        int savedTheme = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(savedTheme);
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
@@ -97,12 +104,10 @@ public class WebViewActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
                 String url = request.getUrl().toString();
                 
-                // الروابط التي تحتوي على b.net تفتح داخل WebView
                 if (url.contains("b.net")) {
-                    return false;  // false = تفتح داخل WebView
+                    return false;
                 }
                 
-                // جميع الروابط الأخرى (واتساب، روابط خارجية، الخ) تفتح في متصفح خارجي
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);

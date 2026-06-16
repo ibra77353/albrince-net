@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1A1A2E">
+    android:background="@color/background">
 
     <!-- شريط علوي -->
     <LinearLayout
@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp"
-        android:background="#16213E"
+        android:background="@color/toolbar"
         android:elevation="4dp">
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="صفحة الدخول"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="🏠"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:background="@drawable/bg_orange_rounded_small"
             android:paddingHorizontal="14dp"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="⟳"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:background="@drawable/bg_orange_rounded_small"
             android:paddingHorizontal="16dp" />
@@ -59,7 +59,7 @@
         android:layout_height="3dp"
         android:visibility="gone"
         android:indeterminate="true"
-        android:progressTint="#FF7900" />
+        android:progressTint="@color/accent" />
 
     <!-- WebView -->
     <WebView
@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/error_text"
         android:textSize="16sp"
         android:visibility="gone"
         android:lineSpacingExtra="8dp" />

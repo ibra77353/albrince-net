@@ -1,227 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_dark"
-    android:gravity="center">
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="@color/background"
+     android:gravity="center">
 
-    <!-- البطاقة الزجاجية الرئيسية -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/mainCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="24dp"
-        android:layout_centerInParent="true"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="20dp"
-        app:cardBackgroundColor="@color/glass_card_bg"
-        app:cardPreventCornerOverlap="false">
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_centerInParent="true"
+         android:layout_marginVertical="24dp"
+         android:layout_marginHorizontal="16dp"
+         app:cardElevation="20dp"
+         app:cardBackgroundColor="@color/card_bg"
+         app:cardCornerRadius="24dp"
+         android:id="@+id/mainCard"
+         app:cardPreventCornerOverlap="false">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:background="@drawable/border_glass">
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:background="@drawable/border_glass"
+             android:padding="20dp"
+             android:orientation="vertical">
 
-            <!-- الشريط الملون -->
             <View
-                android:layout_width="80dp"
-                android:layout_height="4dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/gradient_orange_pink" />
+                 android:layout_height="4dp"
+                 android:layout_width="80dp"
+                 android:background="@drawable/gradient_orange_pink"
+                 android:layout_gravity="center_horizontal" />
 
             <Space
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
+                 android:layout_height="12dp"
+                 android:layout_width="match_parent" />
 
-            <!-- عنوان التطبيق -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="البرنس نت"
-                android:textColor="#FFFFFF"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.02" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="6dp" />
-
-            <!-- الوسم الصغير -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="استراحة وبث مباشر"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:background="@drawable/border_tag" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="14dp" />
-
-            <!-- النص الوصفي -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="استمتع بمشاهدة الاستراحة والبث المباشر الخاص بشبكة البرنس نت بجودة عالية وسهولة تامة. البث داخل الشبكة مجاني 100% ولا يتم الخصم من رصيدك أو استهلاك الميجابايت أثناء المشاهدة. ملاحظة: التطبيق يعمل حصرياً على شبكة البرنس نت."
-                android:textColor="#F5F5F5"
-                android:textSize="14sp"
-                android:gravity="center"
-                android:alpha="0.92"
-                android:lineSpacingExtra="4dp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="18dp" />
-
-            <!-- زر صفحة الدخول -->
-            <Button
-                android:id="@+id/btnLoginPage"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="صفحة الدخول"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_orange_button"
-                android:stateListAnimator="@null" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <!-- زر البث المباشر -->
-            <Button
-                android:id="@+id/btnLiveStream"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="دخول البث المباشر"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_orange_button"
-                android:stateListAnimator="@null" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
-
-            <!-- بطاقة الدعم الفني -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp"
-                android:background="@drawable/border_support_card">
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center_vertical"
+                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="الدعم الفني لـ البرنس نت متوفر دائماً لخدمتكم"
-                    android:textColor="#F5F5F5"
-                    android:textSize="13sp"
-                    android:alpha="0.92" />
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:textSize="26sp"
+                     android:textColor="@color/text_primary"
+                     android:letterSpacing="0.02"
+                     android:layout_weight="1"
+                     android:text="البرنس نت"
+                     android:textStyle="bold" />
+
+                <Button
+                     android:layout_height="40dp"
+                     android:layout_width="40dp"
+                     android:background="@drawable/bg_orange_rounded_small"
+                     android:textSize="18sp"
+                     android:textColor="@color/text_primary"
+                     android:id="@+id/btnSettings"
+                     android:text="⚙️" />
+
+            </LinearLayout>
+
+            <Space
+                 android:layout_height="6dp"
+                 android:layout_width="match_parent" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:background="@drawable/border_tag"
+                 android:paddingVertical="4dp"
+                 android:textSize="11sp"
+                 android:textColor="@color/text_primary"
+                 android:paddingHorizontal="12dp"
+                 android:layout_gravity="center_horizontal"
+                 android:text="استراحة وبث مباشر" />
+
+            <Space
+                 android:layout_height="14dp"
+                 android:layout_width="match_parent" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:alpha="0.92"
+                 android:textSize="14sp"
+                 android:textColor="@color/text_secondary"
+                 android:lineSpacingExtra="4dp"
+                 android:layout_gravity="center_horizontal"
+                 android:text="استمتع بمشاهدة الاستراحة والبث المباشر الخاص بشبكة البرنس نت بجودة عالية وسهولة تامة. البث داخل الشبكة مجاني 100% ولا يتم الخصم من رصيدك أو استهلاك الميجابايت أثناء المشاهدة. ملاحظة: التطبيق يعمل حصرياً على شبكة البرنس نت." />
+
+            <Space
+                 android:layout_height="18dp"
+                 android:layout_width="match_parent" />
+
+            <Button
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_orange_button"
+                 android:textSize="15sp"
+                 android:stateListAnimator="@null"
+                 android:textColor="@color/text_primary"
+                 android:id="@+id/btnLoginPage"
+                 android:text="صفحة الدخول"
+                 android:textStyle="bold" />
+
+            <Space
+                 android:layout_height="10dp"
+                 android:layout_width="match_parent" />
+
+            <Button
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_orange_button"
+                 android:textSize="15sp"
+                 android:stateListAnimator="@null"
+                 android:textColor="@color/text_primary"
+                 android:id="@+id/btnLiveStream"
+                 android:text="البث المباشر"
+                 android:textStyle="bold" />
+
+            <Space
+                 android:layout_height="16dp"
+                 android:layout_width="match_parent" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/border_support_card"
+                 android:padding="12dp"
+                 android:orientation="vertical">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:alpha="0.92"
+                     android:textSize="13sp"
+                     android:textColor="@color/text_secondary"
+                     android:layout_gravity="center_horizontal"
+                     android:text="الدعم الفني لـ البرنس نت متوفر دائماً لخدمتكم" />
 
                 <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                     android:layout_height="10dp"
+                     android:layout_width="match_parent" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:gravity="center"
+                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnWhatsApp"
-                        android:layout_width="0dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="6dp"
-                        android:text="واتساب"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/bg_orange_rounded_small" />
+                         android:layout_height="38dp"
+                         android:layout_width="0dp"
+                         android:layout_marginEnd="6dp"
+                         android:background="@drawable/bg_orange_rounded_small"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_primary"
+                         android:layout_weight="1"
+                         android:id="@+id/btnWhatsApp"
+                         android:text="واتساب"
+                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/btnCall"
-                        android:layout_width="0dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:layout_marginStart="6dp"
-                        android:text="اتصال"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/bg_orange_rounded_small" />
+                         android:layout_height="38dp"
+                         android:layout_width="0dp"
+                         android:background="@drawable/bg_orange_rounded_small"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_primary"
+                         android:layout_marginStart="6dp"
+                         android:layout_weight="1"
+                         android:id="@+id/btnCall"
+                         android:text="اتصال"
+                         android:textStyle="bold" />
 
                 </LinearLayout>
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="14dp" />
-
-            <!-- أزرار مشاركة وحول التطبيق -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btnShare"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:text="مشاركة"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_orange_rounded_small" />
-
-                <Button
-                    android:id="@+id/btnAbout"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:text="حول"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_orange_rounded_small" />
 
             </LinearLayout>
 
             <Space
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
+                 android:layout_height="12dp"
+                 android:layout_width="match_parent" />
 
-            <!-- النص السفلي -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="العنوان المحلي: b.net"
-                android:textColor="#D8C7B8"
-                android:textSize="12sp"
-                android:alpha="0.7" />
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:alpha="0.7"
+                 android:textSize="12sp"
+                 android:textColor="@color/text_hint"
+                 android:layout_gravity="center_horizontal"
+                 android:text="العنوان المحلي: b.net" />
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
