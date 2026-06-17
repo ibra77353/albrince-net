@@ -93,7 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
                         "تطبيق مشاهدة الاستراحة والبث المباشر\n" +
                         "شبكة البرنس نت\n\n" +
                         "تم التطوير بواسطة:\n" +
-                        "فريق البرنس نت التقني")
+                        "ابراهيم عابد")
                 .setPositiveButton("حسناً", null)
                 .show();
     }
